@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.secondaryColor.button{
+  background-color: #ff4500;
+  color: #fff;
+}
+.segmentBorder{
+  border-top: 2px solid #ff4500 !important;
+}
