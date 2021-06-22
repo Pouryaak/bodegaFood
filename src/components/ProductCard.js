@@ -13,9 +13,9 @@ function ProductCard(props) {
   const addToCartHandler = () => {
     dispatch(
       addToCart({
-        prodId,
+        id: prodId,
         name,
-        prodImage: image,
+        image,
         price,
         value: 1,
       })

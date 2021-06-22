@@ -4,11 +4,13 @@ import {
   Button,
   Container,
   Grid,
+  Header,
   Icon,
   Image,
   Label,
   Menu,
-  Popup,
+  Segment,
+  Sidebar,
 } from "semantic-ui-react";
 import logo from "../../assets/bodega-logo.png";
 import { FaShoppingCart, FaUserAlt, FaWhatsapp } from "react-icons/fa";
@@ -16,13 +18,13 @@ import SearchBar from "./SearchBar";
 import SideBarMenu from "./SideBarMenu";
 import { useSelector } from "react-redux";
 import { selectCart } from "../../features/cartSlice";
+import CartItems from "../Cart/CartItems";
+import emptyCartImage from "../../assets/emptyCart.svg";
 
 function Navbar() {
   const cart = useSelector(selectCart);
-  const cartRef = useRef();
   const [sideBarVisible, setSideBarVisible] = useState(false);
-  const [cartBtn, setCartBtn] = useState(null);
-  const [popupOpen, setPopupOpen] = useState(false);
+  const [cartSideOpen, setCartSideOpen] = useState(false);
 
   const closeSideBar = () => {
     setSideBarVisible(false);
@@ -30,21 +32,41 @@ function Navbar() {
   const openeSideBar = () => {
     setSideBarVisible(true);
   };
-
-  const cartHovered = (e) => {
-    setCartBtn(e.target);
-    console.log(e.target);
-    setPopupOpen(true);
+  const openCartSide = () => {
+    setCartSideOpen(true);
   };
 
-  const onPopupRequestClose = () => {
-    setPopupOpen(false);
-  };
+  const cartItems = (
+    <Segment className={classes.cartSide}>
+      <Header as="h3">
+        <Icon name="cart" style={{ color: "#ff4500" }} /> Cart Items
+      </Header>
+      {cart.length > 0 && <CartItems />}
+      {cart.length < 1 && (
+        <Image size="medium" verticalAlign="middle" src={emptyCartImage} />
+      )}
+    </Segment>
+  );
 
-  const cartItem = "";
+  const cartSideBar = (
+    <Sidebar
+      as={Segment}
+      direction="right"
+      width="very wide"
+      icon="labeled"
+      visible={cartSideOpen}
+      vertical
+      animation="overlay"
+      onHide={() => setCartSideOpen(false)}
+      style={{ backgroundColor: "white" }}
+    >
+      {cartItems}
+    </Sidebar>
+  );
 
   return (
     <>
+      {cartSideBar}
       <SideBarMenu open={sideBarVisible} closeSideBar={closeSideBar} />
       <div className={classes.topMessage}>
         <Container>
@@ -73,20 +95,8 @@ function Navbar() {
             <Menu.Item as="a">
               <Icon name="user" /> My Account
             </Menu.Item>
-            <Menu.Item
-              as="a"
-              onMouseOver={cartHovered}
-              onMouseOut={onPopupRequestClose}
-              ref={cartRef}
-            >
-              <Popup
-                open={popupOpen}
-                context={cartRef}
-                position="bottom center"
-                positionFixed
-              >
-                This is just popup
-              </Popup>
+
+            <Menu.Item as="a" onClick={openCartSide}>
               <Icon name="shopping cart" /> Cart
               <Label circular color="orange">
                 {cart.length}
