@@ -19,7 +19,7 @@ import SideBarMenu from "./SideBarMenu";
 import { useSelector } from "react-redux";
 import { selectCart } from "../../features/cartSlice";
 import CartItems from "../Cart/CartItems";
-import emptyCartImage from "../../assets/emptyCart.svg";
+import emptyCartImage from "../../assets/e";
 
 function Navbar() {
   const cart = useSelector(selectCart);
