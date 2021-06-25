@@ -1,0 +1,11 @@
+.account__logoutBtn{
+    background-color: #ff3c2e !important;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 15px;
+    transition: 500ms !important;
+}
+
+.account__logoutBtn:hover {
+    background-color: #d93125 !important;
+}

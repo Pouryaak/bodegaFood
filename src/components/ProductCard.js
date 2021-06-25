@@ -67,7 +67,7 @@ function ProductCard(props) {
           <i className="shop icon"></i>
         </div>
       </button>
-      <ToastContainer transition={Slide} autoClose={3000} />
+      <ToastContainer transition={Slide} autoClose={2000} />
     </Card>
   );
 }

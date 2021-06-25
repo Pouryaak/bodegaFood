@@ -1,0 +1,4 @@
+.checkout__totalItem{
+    display: flex;
+    justify-content: space-between;
+}

@@ -17,3 +17,14 @@
 .cartSide {
   margin: 0px 10px !important;
 }
+.sideItems {
+  display: flex;
+  flex-direction: column !important;
+  height: 100%;
+}
+.grow{
+  flex-grow: 1;
+}
+.sideCartActions{
+  text-align: center;
+}

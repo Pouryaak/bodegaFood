@@ -20,9 +20,11 @@ function CartItems() {
       <List celled ordered>
         {cart.map((item) => (
           <CartItem
+            key={item.name}
             item={item}
             addMore={addMoreHandler}
             reduceItem={decreaseItemHandler}
+            actions={true}
           />
         ))}
       </List>

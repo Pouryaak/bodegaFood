@@ -12,14 +12,16 @@ function CartItem(props) {
     <List.Item>
       <List.Content floated="right">
         X {props.item.value}{" "}
-        <ButtonGroup>
-          <Button icon color="green" onClick={onAddHandler}>
-            <Icon name="plus" />
-          </Button>
-          <Button icon color="red" onClick={onReduceHandler}>
-            <Icon name="minus" />
-          </Button>
-        </ButtonGroup>
+        {props.actions && (
+          <ButtonGroup>
+            <Button icon color="green" onClick={onAddHandler}>
+              <Icon name="plus" />
+            </Button>
+            <Button icon color="red" onClick={onReduceHandler}>
+              <Icon name="minus" />
+            </Button>
+          </ButtonGroup>
+        )}
         {/* X <Input type="number" size="mini" value={item.value} /> */}
       </List.Content>
       <Image avatar src={props.item.prodImg} />

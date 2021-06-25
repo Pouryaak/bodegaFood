@@ -7,22 +7,25 @@ import {
   Header,
   Icon,
   Image,
+  Input,
   Label,
   Menu,
   Segment,
   Sidebar,
 } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/bodega-logo.png";
 import { FaShoppingCart, FaUserAlt, FaWhatsapp } from "react-icons/fa";
 import SearchBar from "./SearchBar";
 import SideBarMenu from "./SideBarMenu";
 import { useSelector } from "react-redux";
-import { selectCart } from "../../features/cartSlice";
+import { selectCart, selectCartAmount } from "../../features/cartSlice";
 import CartItems from "../Cart/CartItems";
 import emptyCartImage from "../../assets/emptyCart.svg";
 
 function Navbar() {
   const cart = useSelector(selectCart);
+  const cartAmount = useSelector(selectCartAmount);
   const [sideBarVisible, setSideBarVisible] = useState(false);
   const [cartSideOpen, setCartSideOpen] = useState(false);
 
@@ -60,7 +63,30 @@ function Navbar() {
       onHide={() => setCartSideOpen(false)}
       style={{ backgroundColor: "white" }}
     >
-      {cartItems}
+      <div className={classes.sideItems}>
+        <div className={classes.sideItemsList}>{cartItems}</div>
+        <div className={classes.grow} />
+        {cartAmount !== 0 && (
+          <div className={classes.sideCartActions}>
+            <Input
+              action={{
+                color: "blue",
+                labelPosition: "left",
+                icon: "cart",
+                content: "Checkout",
+                onClick: () => setCartSideOpen(false),
+              }}
+              onClick={() => setCartSideOpen(false)}
+              as={Link}
+              to="/checkout"
+              readOnly
+              actionPosition="left"
+              placeholder="Search..."
+              value={`RM${cartAmount}`}
+            />
+          </div>
+        )}
+      </div>
     </Sidebar>
   );
 
@@ -82,7 +108,7 @@ function Navbar() {
       </div>
       <Menu borderless>
         <Container>
-          <Menu.Item>
+          <Menu.Item as={Link} to="/">
             <Image size="small" src={logo} />
           </Menu.Item>
           <Menu.Item
@@ -92,7 +118,7 @@ function Navbar() {
             <SearchBar />
           </Menu.Item>
           <Menu.Menu position="right" className={classes.manuLaptopOnly}>
-            <Menu.Item as="a">
+            <Menu.Item as={Link} to="/profile">
               <Icon name="user" /> My Account
             </Menu.Item>
 
