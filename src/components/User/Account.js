@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid, Icon, Label, Menu, Segment } from "semantic-ui-react";
-import { logoutApp } from "../../features/userSlice";
+import { setOrders } from "../../features/ordersSlice";
+import { logoutApp, selectUser } from "../../features/userSlice";
+import { db } from "../../firebase";
 import "./Account.css";
 import Addresses from "./account/Addresses";
 import OrderHistory from "./account/OrderHistory";
@@ -10,6 +12,25 @@ import ProfileAccount from "./account/ProfileAccount";
 function Account() {
   const [activeTab, setActivetab] = useState("profile");
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const [orderNo, setOrderNo] = useState(0);
+  const ordersObj = [];
+
+  useEffect(() => {
+    db.collection("orders")
+      .where("userId", "==", user.uid)
+      .get()
+      .then((snp) => {
+        snp.forEach((order) => {
+          ordersObj.push({
+            ...order.data(),
+            orderId: order.id,
+          });
+        });
+        dispatch(setOrders(ordersObj));
+        setOrderNo(ordersObj.length);
+      });
+  }, []);
 
   const onTabClick = (e, { name }) => {
     setActivetab(name);
@@ -47,7 +68,7 @@ function Account() {
               name="history"
             >
               <Label circular color="orange">
-                1
+                {orderNo}
               </Label>
               Order History
             </Menu.Item>

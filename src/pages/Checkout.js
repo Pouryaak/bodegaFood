@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -10,16 +10,39 @@ import {
   List,
   Segment,
 } from "semantic-ui-react";
-import { selectCart } from "../features/cartSlice";
+import { emptyCart, selectCart, selectCartAmount } from "../features/cartSlice";
 import CartItem from "../components/Cart/CartItem";
 import "./Checkout.css";
 import CheckoutForm from "../components/Checkout/CheckoutForm";
 import { selectUser } from "../features/userSlice";
+import CheckoutSuccess from "../components/Checkout/CheckoutSuccess";
+import { db } from "../firebase";
 
 function Checkout() {
   const cart = useSelector(selectCart);
+  const cartAmount = useSelector(selectCartAmount);
   const user = useSelector(selectUser);
   const [paid, setPaid] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [postal, setPostal] = useState("");
+  const [phone, setPhone] = useState("");
+  const [delivery, setDelivery] = useState("");
+  const [deliveryTime, setDeliveryTime] = useState("");
+  const [orderId, setOrderId] = useState("");
+
+  const timeNow = Date.now();
+  const today = new Date(timeNow);
+
+  useEffect(() => {
+    setName(user.displayName);
+    setEmail(user.email);
+    setAddress(user.addresses);
+  }, [user]);
 
   const cartSummary = cart.map((item) => (
     <CartItem key={item.name} item={item} />
@@ -30,9 +53,36 @@ function Checkout() {
       <div>RM{amount}</div>
     </div>
   );
+  const payment = () => {
+    setLoading(true);
+
+    db.collection("orders")
+      .add({
+        userId: user.uid,
+        userDocId: user.docId,
+        items: cart,
+        name,
+        email,
+        address,
+        postalCode: postal,
+        phone,
+        delivery,
+        deliveryTime,
+        total: parseInt(cartAmount) + parseInt(delivery),
+        date: today.toDateString(),
+      })
+      .then((res) => {
+        setLoading(false);
+        setOrderId(res.id);
+        setPaid(true);
+        dispatch(emptyCart());
+      })
+      .catch((err) => alert(err));
+  };
 
   return (
     <>
+      {paid && <CheckoutSuccess orderId={orderId} />}
       {!user && (
         <Segment placeholder>
           <Header icon>
@@ -44,17 +94,32 @@ function Checkout() {
           </Button>
         </Segment>
       )}
-      {user && (
+      {user && !paid && (
         <div className="checkout">
           <h1>Checkout</h1>
 
-          <Grid>
+          <Grid stackable>
             <Grid.Row>
               <Grid.Column width={10}>
                 <Segment color="orange">
                   <h3>Shipping Address</h3>
                   <Divider />
-                  <CheckoutForm />
+                  <CheckoutForm
+                    name={name}
+                    setName={setName}
+                    email={email}
+                    setEmail={setEmail}
+                    address={address}
+                    setAddress={setAddress}
+                    postal={postal}
+                    setPostal={setPostal}
+                    phone={phone}
+                    setPhone={setPhone}
+                    delivery={delivery}
+                    setDelivery={setDelivery}
+                    deliveryTime={deliveryTime}
+                    setDeliveryTime={setDeliveryTime}
+                  />
                 </Segment>
               </Grid.Column>
               <Grid.Column width={6}>
@@ -64,15 +129,23 @@ function Checkout() {
                     {cartSummary}
                   </List>
                   <div className="checkout__total">
-                    {cartTotal("Subtotal", 23)}
-                    {cartTotal("Shipping", 6)}
+                    {cartTotal("Subtotal", parseInt(cartAmount))}
+                    {cartTotal("Shipping", parseInt(delivery ? delivery : 0))}
                     {cartTotal("Tax", 0)}
                   </div>
                   <div>
                     <Divider />
-                    {cartTotal("Total", 29)}
+                    {cartTotal(
+                      "Total",
+                      parseInt(cartAmount) + parseInt(delivery ? delivery : 0)
+                    )}
                   </div>
-                  <Button color="orange" fluid>
+                  <Button
+                    onClick={payment}
+                    loading={loading}
+                    color="orange"
+                    fluid
+                  >
                     <Icon name="credit card outline" />
                     Pay
                   </Button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form, Icon } from "semantic-ui-react";
 import { selectUser, updateAddressApp } from "../../../features/userSlice";
 
 function Addresses() {
@@ -28,7 +28,7 @@ function Addresses() {
           onChange={(e) => setAddress(e.target.value)}
         />
         <Button color="green" onClick={updateAddressHandler}>
-          Update
+          <Icon name="save" /> Update
         </Button>
       </Form>
     </div>

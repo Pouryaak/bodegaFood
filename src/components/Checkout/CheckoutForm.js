@@ -1,42 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Form } from "semantic-ui-react";
+import { selectUser } from "../../features/userSlice";
 const options = [
   { key: "m", text: "Standard", value: "5" },
   { key: "f", text: "Express", value: "10" },
 ];
-function CheckoutForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [postal, setPostal] = useState("");
-  const [phone, setPhone] = useState("");
-  const [delivery, setDelivery] = useState("");
-  const [deliveryTime, setDeliveryTime] = useState("");
+function CheckoutForm(props) {
+  // const user = useSelector(selectUser);
+
+  // useEffect(() => {
+  //   props.setName(user.displayName);
+  //   props.setEmail(user.email);
+  //   props.setAddress(user.addresses);
+  // }, [props, user]);
 
   return (
     <Form>
       <Form.Group widths="equal">
         <Form.Field required>
           <label>Full Name</label>
-          <input required value={name} placeholder="Enter your full name" />
+          <input
+            required
+            onChange={(e) => props.setName(e.target.value)}
+            value={props.name}
+            placeholder="Enter your full name"
+          />
         </Form.Field>
         <Form.Field required>
           <label>Email</label>
           <input
             required
-            value={email}
+            onChange={(e) => props.setEmail(e.target.value)}
+            value={props.email}
             type="email"
             placeholder="Enter your full Email"
           />
         </Form.Field>
       </Form.Group>
-      <Form.TextArea required value={address} label="Shipping Address" />
+      <Form.TextArea
+        onChange={(e) => props.setAddress(e.target.value)}
+        required
+        value={props.address}
+        label="Shipping Address"
+      />
       <Form.Group widths="equal">
         <Form.Field required>
           <label>Postal Code</label>
           <input
             required
-            value={postal}
+            onChange={(e) => props.setPostal(e.target.value)}
+            value={props.postal}
             type="number"
             placeholder="Enter your postal code"
           />
@@ -45,7 +59,8 @@ function CheckoutForm() {
           <label>Phone Number</label>
           <input
             required
-            value={phone}
+            onChange={(e) => props.setPhone(e.target.value)}
+            value={props.phone}
             type="text"
             placeholder="Enter your phone number"
           />
@@ -54,17 +69,19 @@ function CheckoutForm() {
       <Form.Group widths="equal">
         <Form.Select
           fluid
+          onChange={(e, { value }) => props.setDelivery(value)}
           label="Delivery"
           options={options}
           placeholder="Choose Delivery Option"
           required
-          value={delivery}
+          value={props.delivery}
         />
         <Form.Field required>
           <label>Delivery Date</label>
           <input
             required
-            value={deliveryTime}
+            onChange={(e) => props.setDeliveryTime(e.target.value)}
+            value={props.deliveryTime}
             type="date"
             placeholder="Choose Delivery Date"
           />
