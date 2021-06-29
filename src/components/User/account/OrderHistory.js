@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Icon, Table } from "semantic-ui-react";
 import { selectOrders } from "../../../features/ordersSlice";
+import { Link } from "react-router-dom";
 
 function OrderHistory() {
   const orders = useSelector(selectOrders);
@@ -24,9 +25,9 @@ function OrderHistory() {
           {orders.map((order) => (
             <Table.Row>
               <Table.Cell>
-                <a href="gog">
+                <Link to={`/orders/${order.orderId}`}>
                   <Icon name="eye" /> View
-                </a>
+                </Link>
               </Table.Cell>
               <Table.Cell>{order.orderId}</Table.Cell>
               <Table.Cell>{order.items.length}</Table.Cell>

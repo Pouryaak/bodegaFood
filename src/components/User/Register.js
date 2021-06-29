@@ -30,6 +30,7 @@ function Register() {
                   email: userAuth.user.email,
                   displayName: name,
                   addresses: "",
+                  role: "customer",
                 })
                 .then((res) => {
                   dispatch(
@@ -39,6 +40,7 @@ function Register() {
                       uid: userAuth.user.uid,
                       displayName: name,
                       addresses: "",
+                      role: "customer",
                     })
                   );
                 });

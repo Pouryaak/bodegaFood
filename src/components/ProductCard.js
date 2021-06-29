@@ -1,22 +1,29 @@
 import React from "react";
 import { ToastContainer, toast, Slide } from "react-toastify";
-import { Card, Header, Icon } from "semantic-ui-react";
+import { Card, Header, Icon, Image } from "semantic-ui-react";
 import "react-toastify/dist/ReactToastify.min.css";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice";
+import { Link } from "react-router-dom";
 
 function ProductCard(props) {
-  const { name, prodId, price, image, description, sale, discount } =
+  const { name, prodId, salePrice, price, image, description, sale } =
     props.prod;
   const dispatch = useDispatch();
 
+  const discount = (
+    ((parseInt(price) - parseInt(salePrice)) * 100) /
+    parseInt(price)
+  ).toFixed(0);
+
   const addToCartHandler = () => {
+    let currentPrice = sale ? salePrice : price;
     dispatch(
       addToCart({
         id: prodId,
         name,
         image,
-        price,
+        price: parseInt(currentPrice),
         value: 1,
       })
     );
@@ -26,9 +33,9 @@ function ProductCard(props) {
     <Card>
       <div className="image">
         {sale && (
-          <div className="ui red right ribbon label">{`-${discount}%`}</div>
+          <div className="ui red right ribbon label dicount__label">{`-${discount}%`}</div>
         )}
-        <img src={image} alt="food-pic" />
+        <Image as={Link} to={`/product/${prodId}`} src={image} alt="food-pic" />
       </div>
       <Card.Content>
         <Card.Header>{name}</Card.Header>
@@ -50,10 +57,10 @@ function ProductCard(props) {
                   color: "#828282",
                 }}
               >
-                RM32.00
+                {`RM${price} `}
               </span>
             )}
-            {`RM${price}`}
+            {sale ? ` RM${salePrice}` : `RM${price}`}
           </Header>
         </span>
       </Card.Content>

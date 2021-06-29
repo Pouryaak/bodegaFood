@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { Grid, Icon, Label, Menu, Segment } from "semantic-ui-react";
 import { setOrders } from "../../features/ordersSlice";
 import { logoutApp, selectUser } from "../../features/userSlice";
@@ -72,6 +73,12 @@ function Account() {
               </Label>
               Order History
             </Menu.Item>
+            {user.role === "admin" && (
+              <Menu.Item as={Link} to="/admin-dash">
+                <Icon name="dashboard" />
+                Admin Dashboard
+              </Menu.Item>
+            )}
             <Menu.Item
               as="a"
               className="account__logoutBtn"

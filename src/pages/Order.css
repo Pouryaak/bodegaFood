@@ -1,0 +1,42 @@
+.order__header{
+    font-size: 20px;
+    font-weight: bold;
+}
+.order__header > span {
+    font-size: 16px !important;
+}
+.order__date {
+    color: gray;
+}
+.order__items{
+    margin-top: 10px;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order__itemName{
+    font-weight: bold;
+}
+.order__itemPrice{
+    font-weight: bold;
+}
+.order__itemQty{
+    font-weight: bold;
+}
+.order__details{
+    margin-top: 10px;
+}
+
+.order__summary{
+    display: flex;
+    justify-content: space-between;
+}
+
+.order__segment{
+    margin-bottom: 10px !important;
+}

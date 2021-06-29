@@ -1,6 +1,9 @@
 * {
   margin: 0;
 }
+.dicount__label{
+  z-index: 99 !important;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

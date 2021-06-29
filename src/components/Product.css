@@ -1,0 +1,43 @@
+.product{
+    margin-top: 25px;
+}
+
+.product__price{
+    font-size: 20px;
+    color: #ff4500;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.product__desc{
+    margin-top: 10px;
+}
+
+.product__action{
+    margin-top: 25px;
+}
+.product_btn{
+    background-color: #ff4500 !important;
+    color: white !important;
+}
+.product_btn:hover{
+    background-color: #ed4000 !important;
+}
+
+.product__wishlist{
+    margin-top: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.product__wishlist:hover {
+    color: #ff4500;
+}
+.product__number > div {
+    margin-bottom: 5px;
+}
+.product__number > div > span{
+    font-weight: bold;
+}

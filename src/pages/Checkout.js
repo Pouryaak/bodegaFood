@@ -55,7 +55,20 @@ function Checkout() {
   );
   const payment = () => {
     setLoading(true);
-
+    console.log({
+      userId: user.uid,
+      userDocId: user.docId,
+      items: cart,
+      name,
+      email,
+      address,
+      postalCode: postal,
+      phone,
+      delivery,
+      deliveryTime,
+      total: parseInt(cartAmount) + parseInt(delivery),
+      date: today.toDateString(),
+    });
     db.collection("orders")
       .add({
         userId: user.uid,
@@ -77,7 +90,8 @@ function Checkout() {
         setPaid(true);
         dispatch(emptyCart());
       })
-      .catch((err) => alert(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
 
   return (

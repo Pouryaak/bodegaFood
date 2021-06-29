@@ -8,11 +8,27 @@ import Profile from "./pages/Profile";
 import { auth, db } from "./firebase";
 import { useDispatch } from "react-redux";
 import { login, logout } from "./features/userSlice";
+import Order from "./pages/Order";
+import Porduct from "./components/Porduct";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import { setProducts } from "./features/productsSlice";
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    db.collection("products")
+      .get()
+      .then((snp) => {
+        let prods = [];
+        snp.forEach((doc) => {
+          prods.push({
+            prodId: doc.id,
+            ...doc.data(),
+          });
+        });
+        dispatch(setProducts(prods));
+      });
     auth.onAuthStateChanged((userAuth) => {
       if (userAuth) {
         db.collection("users")
@@ -30,6 +46,7 @@ function App() {
                   uid: userAuth.uid,
                   displayName: userAuth.displayName,
                   addresses: doc.data().addresses,
+                  role: doc.data().role,
                 })
               );
             });
@@ -54,6 +71,15 @@ function App() {
             </Route>
             <Route path="/profile">
               <Profile />
+            </Route>
+            <Route path="/orders/:orderId">
+              <Order />
+            </Route>
+            <Route path="/product/:prodId">
+              <Porduct />
+            </Route>
+            <Route path="/admin-dash">
+              <AdminDashboard />
             </Route>
           </Switch>
         </Container>
