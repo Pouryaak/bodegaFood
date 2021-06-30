@@ -31,7 +31,7 @@ Password: 123456
 
 ## You can take a look at the screenshots
 **Home Page**\
-![Home Page](https://imgur.com/HA2IV0q)\
+![Home Page](https://i.ibb.co/sFzYQFg/Screenshot-2021-06-30-at-10-38-05-AM.png)\
 **Cart**\
 ![Cart](https://imgur.com/U9tHg5C)\
 **Cart Items**\
