@@ -28,3 +28,19 @@ Password: 123456
 ### Admin Login Info:
 Email: pourya@gmail.com
 Password: 123456
+
+## You can take a look at the screenshots
+**Home Page**
+![Home Page](https://imgur.com/HA2IV0q)
+**Cart**
+![Cart](https://imgur.com/U9tHg5C)
+**Cart Items**
+![Cart Items](https://imgur.com/8cjkW3a)
+**Checkout Page**
+![Checkout Page](https://imgur.com/HA2IV0q)
+**Admin Dashboard / Products**
+![Admin Dashboard](https://imgur.com/ByxLSHs)
+**Admin Dashboard / Add Product**
+![Add Product](https://imgur.com/o6hboMU)
+**Admin Dashboard / Order History**
+![Order History](https://imgur.com/5ST96zo)
