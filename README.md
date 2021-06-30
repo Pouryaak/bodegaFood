@@ -33,14 +33,18 @@ Password: 123456
 **Home Page**\
 ![Home Page](https://i.ibb.co/sFzYQFg/Screenshot-2021-06-30-at-10-38-05-AM.png)\
 **Cart**\
-![Cart](https://imgur.com/U9tHg5C)\
+![Cart](https://i.ibb.co/K95z44Z/Screenshot-2021-06-30-at-10-38-19-AM.png)\
 **Cart Items**\
-![Cart Items](https://imgur.com/8cjkW3a)\
+![Cart Items](https://i.ibb.co/KssTzPR/Screenshot-2021-06-30-at-10-38-34-AM.png)\
 **Checkout Page**\
-![Checkout Page](https://imgur.com/HA2IV0q)\
+![Checkout Page](https://i.ibb.co/dfyR278/Screenshot-2021-06-30-at-10-38-45-AM.png)\
+**Customer Profile Page / Order History**\
+![Customer Profile](https://i.ibb.co/5MfCLw7/Screenshot-2021-06-30-at-10-39-41-AM.png)\
+**Customer Profile Page / Order History individually**\
+![Customer Profile individually](https://i.ibb.co/72z6DJb/Screenshot-2021-06-30-at-10-39-50-AM.png)\
 **Admin Dashboard / Products**\
-![Admin Dashboard](https://imgur.com/ByxLSHs)\
+![Admin Dashboard](https://i.ibb.co/k2F2trT/Screenshot-2021-06-30-at-10-40-10-AM.png)\
 **Admin Dashboard / Add Product**\
-![Add Product](https://imgur.com/o6hboMU)\
+![Add Product](https://i.ibb.co/sQKwbsV/Screenshot-2021-06-30-at-10-40-19-AM.png)\
 **Admin Dashboard / Order History**\
-![Order History](https://imgur.com/5ST96zo)\
+![Order History](https://i.ibb.co/3cR6V3N/Screenshot-2021-06-30-at-10-40-33-AM.png)\
